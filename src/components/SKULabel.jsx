@@ -44,7 +44,7 @@ const SKULabel = ({ skuData, setLoading, closeLabel }) => {
         format: 'a4'
       });
       pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
-      pdf.save("skuLabel.pdf");
+      pdf.save(`SKULabel-for-${sku}.pdf`);
       setTimeout(()=>{
         setLoading(false)
       },2000)
