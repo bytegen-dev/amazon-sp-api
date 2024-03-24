@@ -33,23 +33,18 @@ async function getAccessToken(refreshToken, clientId, clientSecret) {
 
 async function getProductDetails(sku, accessToken) {
   // Implement the call to the SP-API endpoint to get the product details.
-  const data = {
-    marketplaceId: "ATVPDKIKX0DER",
-    skus: ["SKU123", "SKU456"],
-    itemType: "Sku",
-    accessToken: "ACCESS_TOKEN"
-  }
   try{
+    const marketplaceIds = [marketplaceId]
     const response = await fetch('http://localhost:3000/get-amazon-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        skus: [sku],
-        itemType: "Sku",
-        marketplaceId,
+        sku,
+        marketplaceIds,
         accessToken,
+        sellerId
       }),
     });
   

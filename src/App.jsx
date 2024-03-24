@@ -12,14 +12,28 @@ const App = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
+  // const fetchProductMetadata = async(asin)=>{
+
+  // }
+
   const handleSKUSubmit = async (sku) => {
     setLoading(true)
     setError(null)
+    setSKUData(null)
     try {
-      const details = await fetchProductDetails(sku);
-      console.log(details);
-      // setSKUData(data);
-      // generatePDF(data);
+      const data = await fetchProductDetails(sku);
+      if(data){
+        const sku = data?.sku
+        const summary = data?.summaries?.length ? data?.summaries[0] : null
+        const {marketplaceId, productType, itemName, fnSku, conditionType, asin, lastUpdatedDate, createdDate} = summary
+        const mainImage = summary?.mainImage?.link
+        const details = {
+          sku, marketplaceId, productType, itemName, fnSku, conditionType, asin, lastUpdatedDate, createdDate, mainImage
+        }
+
+        console.log(details);
+        setSKUData(details)
+      }
       setLoading(false)
     } catch (error) {
       console.error('Failed to fetch and generate label:', error);
@@ -28,12 +42,20 @@ const App = () => {
     }
   };
 
+  const generatePdf = ()=>{
+
+  }
+
+  const closeLabel = ()=>{
+    setSKUData(null)
+  }
+
   return (
     <div className="app">
       {loading && <div className='loader'>
         <div className='circle--comp'></div>
         <p>
-          Processing SKU Label...
+          Please Wait...
         </p>
       </div>}
       <h1><FaAmazon /> SKU Label Generator</h1>
@@ -47,7 +69,7 @@ const App = () => {
           setError(null)
         }} />
       </p>}
-      {skuData && <SKULabel error={error} skuData={skuData} />}
+      {skuData && <SKULabel setLoading={setLoading} generatePdf={generatePdf} closeLabel={closeLabel} error={error} skuData={skuData} />}
     </div>
   );
 };
