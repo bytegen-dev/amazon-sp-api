@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import SKUForm from './components/SKUForm';
 import SKULabel from './components/SKULabel';
-import { getSKUDetails } from './api/AmazonAPI';
-import { generatePDF } from './pdf/generatePDF';
+import { fetchProductDetails } from './api/AmazonAPI';
+// import { generatePDF } from './pdf/generatePDF';
+import { FaAmazon, FaX } from "react-icons/fa6"
 import './styles/main.scss';
 
 const App = () => {
@@ -13,23 +14,40 @@ const App = () => {
 
   const handleSKUSubmit = async (sku) => {
     setLoading(true)
+    setError(null)
     try {
-      const data = await getSKUDetails(sku);
-      setSKUData(data);
-      generatePDF(data);
+      const details = await fetchProductDetails(sku);
+      console.log(details);
+      // setSKUData(data);
+      // generatePDF(data);
       setLoading(false)
     } catch (error) {
       console.error('Failed to fetch and generate label:', error);
       setLoading(false)
-      setError(error?.message)
+      setError(error)
     }
   };
 
   return (
     <div className="app">
-      <h1>SKU Label Generator</h1>
+      {loading && <div className='loader'>
+        <div className='circle--comp'></div>
+        <p>
+          Processing SKU Label...
+        </p>
+      </div>}
+      <h1><FaAmazon /> SKU Label Generator</h1>
       <SKUForm onSubmit={handleSKUSubmit} />
-      <SKULabel error={error} skuData={skuData} />
+      {error && <p className='error' style={{
+        color: "#fff8"
+      }}>
+        <b style={{
+          color: "#fffd"
+        }}>Error:</b> {error?.message || "Error Occured"}<FaX onClick={()=>{
+          setError(null)
+        }} />
+      </p>}
+      {skuData && <SKULabel error={error} skuData={skuData} />}
     </div>
   );
 };

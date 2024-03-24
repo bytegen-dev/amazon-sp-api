@@ -3,10 +3,6 @@ import React from 'react';
 import './SKULabel.scss';
 
 const SKULabel = ({ skuData }) => {
-  if (!skuData) {
-    return <p>Please generate a label.</p>;
-  }
-
   // Replace with your label generation logic
   return (
     <div className="sku-label">

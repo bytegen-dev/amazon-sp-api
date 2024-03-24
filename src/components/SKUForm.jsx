@@ -21,7 +21,7 @@ const SKUForm = ({ onSubmit }) => {
         required
         onChange={(e) => setSKU(e.target.value)}
       />
-      <button type="submit">Generate Label</button>
+      <button disabled={!sku} type="submit">Generate Label</button>
     </form>
   );
 };
