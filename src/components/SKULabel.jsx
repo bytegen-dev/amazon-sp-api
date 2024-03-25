@@ -180,11 +180,44 @@ const SKULabel = ({ skuData, setLoading, closeLabel }) => {
       </div>
 
       <div id="skuLabel" style={{ width: '210mm', minHeight: '297mm', backgroundColor: 'white', padding: '10mm' }}>
-        <svg ref={barcodeRef}></svg>
-        <p className='name'>{skuData?.itemName}</p>
-        {/* <div>Description: {description}</div> */}
-        {isNew && <div className='new'>New</div>}
-        {/* Add the rest of your label design here */}
+        <div className='label'>
+          <svg ref={barcodeRef}></svg>
+          <p className='name'>{skuData?.itemName}</p>
+          {/* <div>Description: {description}</div> */}
+          {isNew && <div className='new'>New</div>}
+          {/* Add the rest of your label design here */}
+        </div>
+        <div className='label'></div>
+        <div className='label'></div>
+
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+        
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+        
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+        
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+        
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+        
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+        
+        <div className='label'></div>
+        <div className='label'></div>
+        <div className='label'></div>
+
       </div>
     </>
   );
