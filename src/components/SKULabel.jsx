@@ -15,6 +15,8 @@ const SKULabel = ({ skuData, setLoading, closeLabel }) => {
 
   const sku = skuData?.sku
 
+  const fnSku = skuData.fnSku
+
   const [ isNew, setIsNew ] = useState(false)
 
   useEffect(()=>{
@@ -28,7 +30,7 @@ const SKULabel = ({ skuData, setLoading, closeLabel }) => {
 
   useEffect(() => {
     if(sku){
-      JsBarcode(barcodeRef.current, sku, { format: "CODE128" });
+      JsBarcode(barcodeRef.current, fnSku, { format: "CODE128" });
     }
   }, [sku]);
 
